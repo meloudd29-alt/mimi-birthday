@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Mimi 💜</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(#281436,#090610 70%);color:#fff0ff;font-family:Georgia,serif;text-align:center;min-height:100vh}
+main{max-width:650px;margin:auto;padding:25px 15px}
+h1{color:#e0b5ff;font-size:clamp(30px,7vw,48px);font-style:italic}
+p{line-height:1.8;color:#decce8}
+button{cursor:pointer;font-family:inherit}
+.btn{background:#261333;color:white;border:1px solid #c38bfa;padding:13px 22px;border-radius:25px;margin:12px}
+#box{font-size:110px;cursor:pointer;filter:drop-shadow(0 0 20px #c16bff);transition:.6s}
+#box:hover{transform:scale(1.1) rotate(-5deg)}
+.hide{display:none!important}
+#cake{font-size:100px;position:relative;margin:20px auto 0}
+#number{font-size:42px;color:#e4b5ff;font-weight:bold;margin-top:-20px}
+#candles{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;max-width:430px;margin:20px auto}
+.candle{height:57px;width:17px;border-radius:5px;background:repeating-linear-gradient(45deg,#e7b9ff,#e7b9ff 5px,#9856c7 5px,#9856c7 10px);position:relative;border:0}
+.flame{position:absolute;top:-19px;left:3px;width:11px;height:17px;background:#ffe99b;border-radius:60% 40% 60% 40%;box-shadow:0 0 13px #ffca64;animation:flicker .6s infinite alternate}
+.off{background:#544158;opacity:.6}
+.off .flame{display:none}
+@keyframes flicker{to{transform:scale(.8) rotate(9deg)}}
+#reason{min-height:115px;border:1px solid #9e66bc;background:#170e22;border-radius:15px;padding:20px;margin:20px auto;max-width:440px;line-height:1.8;color:#efd9ff}
+#progress{color:#cba0f3;font-size:13px}
+</style>
+</head>
+<body>
+<main>
+<section id="intro">
+<p>✦ A LITTLE SURPRISE FROM ARMY PLANET ✦</p>
+<h1>Happy Birthday,<br> Mimi ♡</h1>
+<p>There's a little gift waiting just for you...</p>
+<div id="box" onclick="openGift()">🎁</div>
+<button class="btn" onclick="openGift()">OPEN YOUR GIFT ♡</button>
+</section>
+
+<section id="party" class="hide">
+<h1>Your 19th Birthday 🎂</h1>
+<p>19 candles. 19 reasons why you're special.<br>Tap a candle to blow it out!</p>
+<div id="cake">🎂</div>
+<div id="number">19</div>
+<div id="candles"></div>
+<div id="progress">0 of 19 candles blown out</div>
+<div id="reason">✨ Choose your first candle to reveal a reason! ✨</div>
+<div id="ending" class="hide">
+<h1>You Are So Loved 💜</h1>
+<p>May your 19th year bring you peace, beautiful memories, and every happiness you deserve.</p>
+<p>Even from far away, we're celebrating you today.</p>
+<h2>With all our love,<br>Army Planet 💜</h2>
+<button class="btn" onclick="location.reload()">OPEN AGAIN ↻</button>
+</div>
+</section>
+</main>
+
+<script>
+const reasons=[
+"Your kindness makes the world softer.",
+"Your smile can brighten someone's day.",
+"You have a beautiful heart.",
+"Your honesty makes you special.",
+"Your dreams deserve to come true.",
+"Your laughter is a little kind of magic.",
+"You are wonderfully unique.",
+"You are stronger than you realize.",
+"You deserve the same kindness you give.",
+"Your courage matters, even when you're scared.",
+"You make ordinary moments feel special.",
+"You are worthy of genuine friendship.",
+"Your little quirks make you YOU.",
+"You keep growing, even when it's difficult.",
+"There is so much hope waiting for you.",
+"You bring something special into this world.",
+"You deserve people who appreciate you.",
+"Your future holds so many possibilities.",
+"Simply because you exist, you matter. ♡"
+];
+let count=0;
+function openGift(){
+  document.getElementById('intro').classList.add('hide');
+  document.getElementById('party').classList.remove('hide');
+  const candles = document.getElementById('candles');
+  if (candles.children.length > 0) return;
+  for(let i=0;i<19;i++){
+    let b=document.createElement('button');
+    b.className='candle';
+    b.innerHTML='<span class="flame"></span>';
+    b.setAttribute('aria-label','Blow out candle '+(i+1));
+    b.onclick=()=>blow(b,i);
+    candles.appendChild(b);
+  }
+}
+function blow(b,i){
+  if(b.classList.contains('off'))return;
+  b.classList.add('off');count++;
+  document.getElementById('progress').textContent=count+' of 19 candles blown out';
+  document.getElementById('reason').innerHTML='<span style="color:#c995ff">REASON '+count+' OF 19 ♡</span><br>'+reasons[i];
+  if(count===19){
+    document.getElementById('ending').classList.remove('hide');
+    document.getElementById('ending').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}
+</script>
+</body>
+</html>
